@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.hadoop.malin;
+package org.apache.hadoop.malin.columntype;
 
-public abstract class ColumnDefintion {
+import org.apache.hadoop.malin.ColumnType;
 
-  public abstract void createIndex(String name, Class<? extends IndexType> clazz);
+public class IntegerColumnType extends ColumnType {
 
 }

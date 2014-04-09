@@ -16,8 +16,6 @@
  */
 package org.apache.hadoop.malin;
 
-public abstract class ColumnDefintion {
-
-  public abstract void createIndex(String name, Class<? extends IndexType> clazz);
+public class IndexType {
 
 }

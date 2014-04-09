@@ -21,11 +21,13 @@ import java.io.IOException;
 public abstract class AlterTable {
 
   public abstract void addColumn(ColumnDefintion columnDef) throws IOException;
-  
+
   public abstract void addIndex(IndexDefintion indexDef) throws IOException;
-  
+
   public abstract void dropColumn(String name) throws IOException;
-  
+
   public abstract void dropIndex(String name) throws IOException;
-  
+
+  public abstract ColumnDefintion createColumnDefintion(String string, Class<? extends ColumnType> clazz);
+
 }

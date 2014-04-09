@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.hadoop.malin;
+package org.apache.hadoop.malin.indextype;
 
-public abstract class ColumnDefintion {
+import org.apache.hadoop.malin.IndexType;
 
-  public abstract void createIndex(String name, Class<? extends IndexType> clazz);
+public class HashIndexType extends IndexType {
 
 }

@@ -19,6 +19,12 @@ package org.apache.hadoop.malin;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.hadoop.malin.columntype.DoubleColumnType;
+import org.apache.hadoop.malin.columntype.IntegerColumnType;
+import org.apache.hadoop.malin.columntype.StringColumnType;
+import org.apache.hadoop.malin.indextype.HashIndexType;
+import org.apache.hadoop.malin.indextype.OrderedAscIndexType;
+
 public class UsingApi {
 
   public static void main(String[] args) throws IOException {
@@ -33,9 +39,14 @@ public class UsingApi {
 
       // The col def stuff is not fully thought out...
 
-      alterTable.addColumn(new ColumnDefintion()); // col_1
-      alterTable.addColumn(new ColumnDefintion()); // col_2
-      alterTable.addColumn(new ColumnDefintion()); // col_3
+      ColumnDefintion col1 = alterTable.createColumnDefintion("col1", IntegerColumnType.class);
+      col1.createIndex("index1", OrderedAscIndexType.class);
+
+      ColumnDefintion col2 = alterTable.createColumnDefintion("col2", StringColumnType.class);
+      col2.createIndex("index2", HashIndexType.class);
+
+      ColumnDefintion col3 = alterTable.createColumnDefintion("col3", DoubleColumnType.class);
+      col3.createIndex("index3", HashIndexType.class);
     }
 
     RowId rowId;
