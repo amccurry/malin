@@ -27,7 +27,11 @@ under the License.
 	<version>0.1-SNAPSHOT</version>
 
 	<dependencies>
-
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>4.3.0</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
