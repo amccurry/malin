@@ -1,5 +1,6 @@
-package org.apache.hadoop.malin.io_v2;
+package org.apache.hadoop.malin.io_v2.types;
 
+import org.apache.hadoop.malin.io_v2.ColumnContainer;
 import org.apache.lucene.util.OpenBitSet;
 
 /**
@@ -73,7 +74,7 @@ public class IntColumnContainer extends ColumnContainer<IntType> {
     _minValue = Integer.MAX_VALUE;
     _maxValue = Integer.MIN_VALUE;
   }
-  
+
   public OpenBitSet getBitSet() {
     return _valuesThatAreSet;
   }
@@ -86,6 +87,30 @@ public class IntColumnContainer extends ColumnContainer<IntType> {
   @Override
   public boolean isValueSet(int record) {
     return _valuesThatAreSet.get(record);
+  }
+
+  @Override
+  public void setObjectValue(int record, Object t) {
+    set(record, (int) t);
+  }
+
+  @Override
+  public Object[] getObjectValues() {
+    Object[] valueArray = new Object[_values.length];
+    for (int i = 0; i < _values.length; i++) {
+      valueArray[i] = _values[i];
+    }
+    return valueArray;
+  }
+
+  @Override
+  public Object getMinObjectValue() {
+    return getMinObjectValue();
+  }
+
+  @Override
+  public Object getMaxObjectValue() {
+    return getMaxObjectValue();
   }
 
 }

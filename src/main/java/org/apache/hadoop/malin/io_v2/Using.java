@@ -11,6 +11,7 @@ import org.apache.hadoop.io.DataOutputBuffer;
 import org.apache.hadoop.io.compress.CompressionInputStream;
 import org.apache.hadoop.io.compress.CompressionOutputStream;
 import org.apache.hadoop.io.compress.DeflateCodec;
+import org.apache.hadoop.malin.io_v2.types.IntType;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -32,24 +33,23 @@ import org.apache.hadoop.io.compress.DeflateCodec;
 public class Using {
 
   public static void main(String[] args) throws IOException {
-    ColumnWritableFactory columnWritableFactory = new ColumnWritableFactory();
-    ColumnContainerFactory columnCollectorFactory = new ColumnContainerFactory();
 
-    IntColumnContainer columnCollector1 = columnCollectorFactory.newInstance(IntType.class);
-    IntColumnContainer columnCollector2 = columnCollectorFactory.newInstance(IntType.class);
+    IntType intType = new IntType();
+    ColumnContainer<IntType> columnCollector1 = intType.getColumnCollector();
+    ColumnContainer<IntType> columnCollector2 = intType.getColumnCollector();
     int maxRecord = 100000;
     boolean compress = false;
     Random random = new Random(0);
     for (int t = 0; t < 100; t++) {
       columnCollector1.reset();
       for (int i = 0; i < 10000; i++) {
-        columnCollector1.set(random.nextInt(maxRecord), getRandomRange(random, 0, Integer.MAX_VALUE));
+        columnCollector1.setObjectValue(random.nextInt(maxRecord), getRandomRange(random, 0, Integer.MAX_VALUE));
       }
 
       DataOutputBuffer out = new DataOutputBuffer();
       DataInputBuffer in = new DataInputBuffer();
 
-      ColumnWritable<IntType> columnWritable = columnWritableFactory.newInstance(IntType.class);
+      ColumnWritable<IntType> columnWritable = intType.getColumnWritable();
       DeflateCodec defaultCodec = new DeflateCodec();
 
       if (compress) {
@@ -73,7 +73,7 @@ public class Using {
         columnWritable.read(columnCollector1, in);
       }
 
-      int[] values = columnCollector2.getValues();
+      Object[] values = columnCollector2.getObjectValues();
       int numberOfNonNullValues = columnCollector2.getNumberOfNonNullValues();
       for (int i = 0; i < values.length && numberOfNonNullValues > 0; i++) {
         if (columnCollector2.isValueSet(i)) {

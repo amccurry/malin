@@ -1,10 +1,12 @@
-package org.apache.hadoop.malin.io_v2;
+package org.apache.hadoop.malin.io_v2.types;
 
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
 import org.apache.hadoop.io.file.tfile.Utils;
+import org.apache.hadoop.malin.io_v2.ColumnContainer;
+import org.apache.hadoop.malin.io_v2.ColumnWritable;
 import org.apache.lucene.util.OpenBitSet;
 
 /**

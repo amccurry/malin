@@ -1,4 +1,9 @@
-package org.apache.hadoop.malin.io_v2;
+package org.apache.hadoop.malin.io_v2.types;
+
+import org.apache.hadoop.malin.io_v2.Column;
+import org.apache.hadoop.malin.io_v2.ColumnContainer;
+import org.apache.hadoop.malin.io_v2.ColumnWritable;
+import org.apache.hadoop.malin.io_v2.Type;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,12 +22,21 @@ package org.apache.hadoop.malin.io_v2;
  * the License.
  */
 
-public abstract class Column<T extends Type> {
+public class IntType extends Type {
 
-  public abstract long getColumnId();
+  @Override
+  public ColumnContainer<IntType> getColumnCollector() {
+    return new IntColumnContainer();
+  }
 
-  public abstract void add(int recordId, ColumnContainer<T> container);
+  @Override
+  public ColumnWritable<IntType> getColumnWritable() {
+    return new IntColumnWritable();
+  }
 
-  public abstract void setValue(Object o);
+  @Override
+  public Column<IntType> getColumnInstance(long columnId) {
+    return new IntColumn(columnId);
+  }
 
 }

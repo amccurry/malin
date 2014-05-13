@@ -1,4 +1,7 @@
-package org.apache.hadoop.malin.io_v2;
+package org.apache.hadoop.malin.io_v2.types;
+
+import org.apache.hadoop.malin.io_v2.Column;
+import org.apache.hadoop.malin.io_v2.ColumnContainer;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -43,6 +46,11 @@ public class IntColumn extends Column<IntType> {
   public void add(int recordId, ColumnContainer<IntType> container) {
     IntColumnContainer intContainer = (IntColumnContainer) container;
     intContainer.set(recordId, _value);
+  }
+
+  @Override
+  public void setValue(Object o) {
+    _value = (int) o;
   }
 
 }

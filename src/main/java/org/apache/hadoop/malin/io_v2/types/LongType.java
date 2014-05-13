@@ -1,4 +1,9 @@
-package org.apache.hadoop.malin.io_v2;
+package org.apache.hadoop.malin.io_v2.types;
+
+import org.apache.hadoop.malin.io_v2.ColumnContainer;
+import org.apache.hadoop.malin.io_v2.ColumnWritable;
+import org.apache.hadoop.malin.io_v2.Type;
+
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,6 +21,16 @@ package org.apache.hadoop.malin.io_v2;
  * limitations under the License.
  */
 
-public interface IntType extends Type {
+public class LongType extends Type {
+
+  @Override
+  public ColumnContainer<? extends Type> getColumnCollector() {
+    throw new RuntimeException("Not Implemented");
+  }
+
+  @Override
+  public ColumnWritable<? extends Type> getColumnWritable() {
+    throw new RuntimeException("Not Implemented");
+  }
 
 }

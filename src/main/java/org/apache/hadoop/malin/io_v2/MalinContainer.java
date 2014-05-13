@@ -17,6 +17,10 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.malin.io.file.valuecontainers.IntContainer;
+import org.apache.hadoop.malin.io_v2.types.IntColumn;
+import org.apache.hadoop.malin.io_v2.types.IntColumnContainer;
+import org.apache.hadoop.malin.io_v2.types.IntColumnWritable;
+import org.apache.hadoop.malin.io_v2.types.IntType;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -43,7 +47,7 @@ public class MalinContainer {
     FileSystem fileSystem = path.getFileSystem(configuration);
     FSDataOutputStream out = fileSystem.create(path);
     Writer container = new MalinContainer.Writer(out);
-    container.register(0L, new IntColumnContainer(), new IntColumnWritable());
+    container.register(0L, new IntType());
     container.register(1L, new IntColumnContainer(), new IntColumnWritable());
     container.register(2L, new IntColumnContainer(), new IntColumnWritable());
     container.register(3L, new IntColumnContainer(), new IntColumnWritable());
@@ -54,11 +58,13 @@ public class MalinContainer {
     container.register(8L, new IntColumnContainer(), new IntColumnWritable());
     container.register(9L, new IntColumnContainer(), new IntColumnWritable());
 
+    IntType type = new IntType();
+    
     List<Column<? extends Type>> record = new ArrayList<Column<? extends Type>>();
     for (int i = 0; i < 100000; i++) {
       record.clear();
       for (int c = 0; c < 10; c++) {
-        IntColumn column = new IntColumn(0);
+        Column<IntType> column = type.getColumnInstance(c);        
         column.setValue(i + c);
         record.add(column);
       }
@@ -78,6 +84,10 @@ public class MalinContainer {
 
     public Writer(FSDataOutputStream out) {
       _out = out;
+    }
+
+    public void register(long globalColumnId, Type type) {
+      throw new RuntimeException("Not Implemented");
     }
 
     public void register(long globalColumnId, ColumnContainer<? extends Type> columnContainer,

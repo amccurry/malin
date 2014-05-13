@@ -25,4 +25,12 @@ public abstract class ColumnContainer<TYPE> {
 
   public abstract boolean isValueSet(int record);
 
+  public abstract void setObjectValue(int record, Object t);
+
+  public abstract Object[] getObjectValues();
+
+  public abstract Object getMinObjectValue();
+
+  public abstract Object getMaxObjectValue();
+  
 }
